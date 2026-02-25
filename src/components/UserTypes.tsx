@@ -17,11 +17,11 @@ const container = { hidden: {}, show: { transition: { staggerChildren: 0.07 } } 
 const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
 
 const UserTypes = () => (
-  <section className="py-24 section-gradient" id="user-types">
+  <section className="py-24 section-light" id="user-types">
     <div className="container mx-auto px-6">
       <div className="text-center mb-14">
-        <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-          Built for <span className="gradient-text">Every Learner</span>
+        <h2 className="font-display text-3xl sm:text-4xl italic mb-4">
+          Built for <span className="text-accent">Every Learner</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
           Whether you're 10 or 40 — find the perfect starting point for your CS journey.
@@ -38,12 +38,12 @@ const UserTypes = () => (
           <motion.div
             key={t.title}
             variants={item}
-            className="bg-card rounded-xl p-6 border border-border card-hover cursor-pointer group"
+            className="card-elevated rounded-xl p-6 card-hover cursor-pointer group"
           >
-            <div className="w-11 h-11 rounded-lg gradient-btn flex items-center justify-center mb-4 text-primary-foreground">
+            <div className="icon-box mb-4">
               <t.icon size={20} />
             </div>
-            <h3 className="font-display font-semibold text-card-foreground mb-1.5">{t.title}</h3>
+            <h3 className="font-semibold text-card-foreground mb-1.5">{t.title}</h3>
             <p className="text-sm text-muted-foreground mb-4">{t.desc}</p>
             <span className="text-xs font-semibold text-primary group-hover:underline">
               Explore Path →

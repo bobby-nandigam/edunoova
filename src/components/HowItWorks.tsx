@@ -11,11 +11,11 @@ const steps = [
 ];
 
 const HowItWorks = () => (
-  <section className="py-24 section-gradient-alt" id="how-it-works">
+  <section className="py-24 section-alt" id="how-it-works">
     <div className="container mx-auto px-6">
       <div className="text-center mb-14">
-        <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-          How It <span className="gradient-text">Works</span>
+        <h2 className="font-display text-3xl sm:text-4xl italic mb-4">
+          How It <span className="text-accent">Works</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
           Six simple steps from sign-up to career success.
@@ -32,7 +32,7 @@ const HowItWorks = () => (
             className="relative flex gap-4"
           >
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-xl gradient-btn flex items-center justify-center text-primary-foreground font-bold text-lg shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-bold text-lg shrink-0">
                 {i + 1}
               </div>
               {i < steps.length - 1 && (
@@ -40,7 +40,7 @@ const HowItWorks = () => (
               )}
             </div>
             <div className="pb-8">
-              <h4 className="font-display font-semibold mb-1">{s.title}</h4>
+              <h4 className="font-semibold mb-1">{s.title}</h4>
               <p className="text-sm text-muted-foreground">{s.desc}</p>
             </div>
           </motion.div>

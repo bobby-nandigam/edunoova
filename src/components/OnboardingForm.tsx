@@ -17,11 +17,11 @@ const OnboardingForm = () => {
 
   if (submitted) {
     return (
-      <section className="py-24 section-gradient" id="onboarding">
+      <section className="py-24 section-light" id="onboarding">
         <div className="container mx-auto px-6 max-w-2xl text-center">
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-card p-12 rounded-2xl border border-border">
-            <div className="w-16 h-16 mx-auto rounded-full gradient-btn flex items-center justify-center text-primary-foreground text-2xl mb-4">✓</div>
-            <h3 className="font-display text-2xl font-bold mb-2">You're All Set!</h3>
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="card-elevated p-12 rounded-2xl">
+            <div className="w-16 h-16 mx-auto rounded-full bg-accent flex items-center justify-center text-accent-foreground text-2xl mb-4">✓</div>
+            <h3 className="font-display text-2xl italic mb-2">You're All Set!</h3>
             <p className="text-muted-foreground">Your personalized learning plan is being created. We'll get in touch soon!</p>
           </motion.div>
         </div>
@@ -30,11 +30,11 @@ const OnboardingForm = () => {
   }
 
   return (
-    <section className="py-24 section-gradient" id="onboarding">
+    <section className="py-24 section-light" id="onboarding">
       <div className="container mx-auto px-6 max-w-2xl">
         <div className="text-center mb-10">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-            Create Your <span className="gradient-text">Learning Plan</span>
+          <h2 className="font-display text-3xl sm:text-4xl italic mb-4">
+            Create Your <span className="text-accent">Learning Plan</span>
           </h2>
           <p className="text-muted-foreground">Tell us about yourself and we'll build a personalized roadmap.</p>
         </div>
@@ -44,7 +44,7 @@ const OnboardingForm = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           onSubmit={handleSubmit}
-          className="bg-card rounded-2xl p-8 border border-border space-y-5"
+          className="card-elevated rounded-2xl p-8 space-y-5"
         >
           <div className="grid sm:grid-cols-2 gap-5">
             <div>
@@ -109,7 +109,7 @@ const OnboardingForm = () => {
 
           <button
             type="submit"
-            className="w-full gradient-btn text-primary-foreground py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+            className="w-full bg-primary text-primary-foreground py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
           >
             <Send size={16} /> Create My Learning Plan
           </button>

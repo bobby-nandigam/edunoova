@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Instrument+Serif:ital@0;1&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,46 +6,35 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 30% 10%;
+    --background: 0 0% 99%;
+    --foreground: 220 20% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 30% 10%;
+    --card-foreground: 220 20% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 10%;
+    --popover-foreground: 220 20% 12%;
 
-    --primary: 217 91% 50%;
+    --primary: 220 65% 18%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 94%;
-    --secondary-foreground: 220 30% 20%;
+    --secondary: 220 10% 96%;
+    --secondary-foreground: 220 20% 20%;
 
-    --muted: 220 14% 94%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 220 10% 96%;
+    --muted-foreground: 220 8% 50%;
 
-    --accent: 190 90% 45%;
+    --accent: 160 50% 42%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 14% 90%;
-    --input: 220 14% 90%;
-    --ring: 217 91% 50%;
+    --border: 220 10% 92%;
+    --input: 220 10% 92%;
+    --ring: 220 65% 18%;
 
-    --radius: 0.75rem;
-
-    --hero-from: 220 60% 12%;
-    --hero-via: 240 50% 15%;
-    --hero-to: 200 60% 10%;
-
-    --gradient-blue: 217 91% 50%;
-    --gradient-cyan: 190 90% 45%;
-    --gradient-purple: 260 70% 55%;
-
-    --glass-bg: 220 20% 97% / 0.08;
-    --glass-border: 220 20% 97% / 0.15;
+    --radius: 0.625rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -54,37 +43,37 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 220 65% 18%;
   }
 
   .dark {
-    --background: 220 30% 6%;
-    --foreground: 220 10% 95%;
+    --background: 220 16% 7%;
+    --foreground: 220 10% 92%;
 
-    --card: 220 25% 10%;
-    --card-foreground: 220 10% 95%;
+    --card: 220 14% 10%;
+    --card-foreground: 220 10% 92%;
 
-    --popover: 220 25% 10%;
-    --popover-foreground: 220 10% 95%;
+    --popover: 220 14% 10%;
+    --popover-foreground: 220 10% 92%;
 
-    --primary: 217 91% 55%;
+    --primary: 220 60% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 20% 16%;
-    --secondary-foreground: 220 10% 90%;
+    --secondary: 220 12% 15%;
+    --secondary-foreground: 220 10% 85%;
 
-    --muted: 220 20% 16%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 220 12% 15%;
+    --muted-foreground: 220 8% 55%;
 
-    --accent: 190 90% 50%;
+    --accent: 160 50% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 18%;
-    --input: 220 20% 18%;
-    --ring: 217 91% 55%;
+    --border: 220 12% 17%;
+    --input: 220 12% 17%;
+    --ring: 220 60% 60%;
   }
 }
 
@@ -93,7 +82,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   html {
@@ -102,52 +91,42 @@
 }
 
 @layer utilities {
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(217 91% 55%), hsl(190 90% 50%), hsl(260 70% 60%));
+  .text-accent-highlight {
+    @apply text-accent font-semibold;
   }
 
-  .gradient-hero {
-    background: linear-gradient(135deg, hsl(220 60% 8%), hsl(240 50% 12%), hsl(200 60% 8%));
+  .hero-section {
+    @apply bg-primary;
   }
 
-  .gradient-btn {
-    background: linear-gradient(135deg, hsl(217 91% 50%), hsl(190 90% 45%));
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:opacity-90 transition-opacity;
   }
 
-  .gradient-btn:hover {
-    background: linear-gradient(135deg, hsl(217 91% 55%), hsl(190 90% 50%));
+  .btn-outline {
+    @apply border border-primary-foreground/20 text-primary-foreground/90 hover:bg-primary-foreground/5 transition-colors;
   }
 
-  .glass {
-    background: hsla(220, 20%, 97%, 0.06);
-    border: 1px solid hsla(220, 20%, 97%, 0.12);
-    backdrop-filter: blur(12px);
+  .section-light {
+    @apply bg-background;
   }
 
-  .glass-light {
-    background: hsla(220, 20%, 100%, 0.7);
-    border: 1px solid hsla(220, 14%, 90%, 0.5);
-    backdrop-filter: blur(12px);
+  .section-alt {
+    @apply bg-secondary;
   }
 
-  .section-gradient {
-    background: linear-gradient(180deg, hsl(220 20% 97%) 0%, hsl(220 30% 95%) 100%);
-  }
-
-  .section-gradient-alt {
-    background: linear-gradient(180deg, hsl(220 30% 95%) 0%, hsl(220 20% 97%) 100%);
+  .card-elevated {
+    @apply bg-card border border-border shadow-sm;
   }
 
   .card-hover {
-    @apply transition-all duration-300;
+    @apply transition-all duration-200;
   }
   .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -12px hsla(217, 91%, 50%, 0.15);
+    @apply shadow-md -translate-y-0.5;
   }
 
-  .glow {
-    box-shadow: 0 0 40px -10px hsla(217, 91%, 55%, 0.3);
+  .icon-box {
+    @apply w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-primary-foreground;
   }
 }

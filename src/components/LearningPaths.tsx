@@ -15,16 +15,16 @@ const paths = [
 const levelColor: Record<string, string> = {
   Beginner: "bg-accent/15 text-accent",
   Intermediate: "bg-primary/15 text-primary",
-  Advanced: "bg-[hsl(260,70%,55%)]/15 text-[hsl(260,70%,55%)]",
+  Advanced: "bg-foreground/10 text-foreground",
   Expert: "bg-destructive/15 text-destructive",
 };
 
 const LearningPaths = () => (
-  <section className="py-24 section-gradient-alt" id="learning-paths">
+  <section className="py-24 section-alt" id="learning-paths">
     <div className="container mx-auto px-6">
       <div className="text-center mb-14">
-        <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-          Structured <span className="gradient-text">Learning Paths</span>
+        <h2 className="font-display text-3xl sm:text-4xl italic mb-4">
+          Structured <span className="text-accent">Learning Paths</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
           Follow a guided roadmap from fundamentals to career-ready expertise.
@@ -38,12 +38,12 @@ const LearningPaths = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className="bg-card rounded-xl p-6 border border-border card-hover group"
+            className="card-elevated rounded-xl p-6 card-hover group"
           >
             <span className={`inline-block px-2.5 py-1 rounded-full text-[11px] font-semibold mb-4 ${levelColor[p.level]}`}>
               {p.level}
             </span>
-            <h3 className="font-display font-semibold text-card-foreground mb-3 leading-snug">{p.title}</h3>
+            <h3 className="font-semibold text-card-foreground mb-3 leading-snug">{p.title}</h3>
             <div className="space-y-2 text-xs text-muted-foreground mb-4">
               <div className="flex items-center gap-1.5"><Clock size={12} /> {p.duration}</div>
               <div className="flex items-center gap-1.5"><BarChart3 size={12} /> {p.age}</div>

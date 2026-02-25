@@ -2,21 +2,21 @@ import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 const testimonials = [
-  { name: "Priya Sharma", role: "B.Tech CSE, IIT Delhi", text: "AlgoNE Learn transformed my placement prep. The structured DSA track helped me crack Google's interview.", rating: 5, avatar: "PS" },
+  { name: "Priya Sharma", role: "B.Tech CSE, IIT Delhi", text: "Eduva transformed my placement prep. The structured DSA track helped me crack Google's interview.", rating: 5, avatar: "PS" },
   { name: "Arjun Mehta", role: "High School Student", text: "I started at age 14 and now I can build full apps in Python. The AI mentor is like having a personal tutor!", rating: 5, avatar: "AM" },
   { name: "Sneha Reddy", role: "ML Engineer at Amazon", text: "The AI/ML track is genuinely world-class. Went from basics to deploying production models in 6 months.", rating: 5, avatar: "SR" },
   { name: "Rahul Verma", role: "Placement Aspirant", text: "Got placed at Microsoft thanks to the interview prep module. The mock interviews with AI were incredibly helpful.", rating: 5, avatar: "RV" },
 ];
 
 const Testimonials = () => (
-  <section className="py-24 section-gradient-alt" id="testimonials">
+  <section className="py-24 section-alt" id="testimonials">
     <div className="container mx-auto px-6">
       <div className="text-center mb-14">
-        <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-          Loved by <span className="gradient-text">Learners</span>
+        <h2 className="font-display text-3xl sm:text-4xl italic mb-4">
+          Loved by <span className="text-accent">Learners</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
-          Join thousands who've accelerated their CS careers with AlgoNE Learn.
+          Join thousands who've accelerated their CS careers with Eduva.
         </p>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -27,14 +27,14 @@ const Testimonials = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
-            className="bg-card rounded-xl p-6 border border-border card-hover"
+            className="card-elevated rounded-xl p-6 card-hover"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full gradient-btn flex items-center justify-center text-primary-foreground text-sm font-bold">
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-bold">
                 {t.avatar}
               </div>
               <div>
-                <h4 className="font-display font-semibold text-sm">{t.name}</h4>
+                <h4 className="font-semibold text-sm">{t.name}</h4>
                 <p className="text-xs text-muted-foreground">{t.role}</p>
               </div>
             </div>
