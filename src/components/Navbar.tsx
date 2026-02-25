@@ -14,10 +14,11 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        <a href="#" className="font-display text-xl font-bold gradient-text">
-          AlgoNE Learn
+        <a href="#" className="flex flex-col">
+          <span className="font-display text-2xl font-bold text-primary-foreground italic">Eduva</span>
+          <span className="text-[10px] tracking-widest uppercase text-primary-foreground/50 -mt-1">Learn Today. Lead Tomorrow.</span>
         </a>
 
         {/* Desktop */}
@@ -26,21 +27,21 @@ const Navbar = () => {
             <a
               key={l.label}
               href={l.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-primary-foreground/70 hover:text-primary-foreground transition-colors"
             >
               {l.label}
             </a>
           ))}
           <a
             href="#onboarding"
-            className="gradient-btn px-5 py-2 rounded-lg text-sm font-semibold text-primary-foreground transition-all hover:shadow-lg"
+            className="bg-accent text-accent-foreground px-5 py-2 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90"
           >
             Start Free
           </a>
         </div>
 
         {/* Mobile toggle */}
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
+        <button className="md:hidden text-primary-foreground" onClick={() => setOpen(!open)}>
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -52,7 +53,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass border-t border-border"
+            className="md:hidden bg-primary border-t border-primary-foreground/10"
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((l) => (
@@ -60,7 +61,7 @@ const Navbar = () => {
                   key={l.label}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground"
+                  className="text-sm font-medium text-primary-foreground/70 hover:text-primary-foreground"
                 >
                   {l.label}
                 </a>
@@ -68,7 +69,7 @@ const Navbar = () => {
               <a
                 href="#onboarding"
                 onClick={() => setOpen(false)}
-                className="gradient-btn px-5 py-2.5 rounded-lg text-sm font-semibold text-primary-foreground text-center"
+                className="bg-accent text-accent-foreground px-5 py-2.5 rounded-lg text-sm font-semibold text-center"
               >
                 Start Free
               </a>
