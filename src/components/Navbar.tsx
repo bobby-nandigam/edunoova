@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import edunovaLogo from "@/assets/edunova-logo.png";
 
 const navLinks = [
   { label: "Courses", href: "#learning-paths" },
@@ -16,8 +17,8 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        <a href="#" className="font-display text-xl font-bold gradient-text">
-          EduNova
+        <a href="#" className="flex items-center">
+          <img src={edunovaLogo} alt="EduNova" className="h-10" />
         </a>
 
         {/* Desktop */}

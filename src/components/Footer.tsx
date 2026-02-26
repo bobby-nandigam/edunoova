@@ -1,4 +1,5 @@
 import { Github, Twitter, Linkedin, Youtube } from "lucide-react";
+import edunovaLogo from "@/assets/edunova-logo.png";
 
 const links = {
   Platform: ["About", "Courses", "Learning Paths", "Pricing", "Blog"],
@@ -11,7 +12,7 @@ const Footer = () => (
     <div className="container mx-auto px-6">
       <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
         <div className="lg:col-span-2">
-          <span className="font-display text-xl font-bold gradient-text">EduNova</span>
+          <img src={edunovaLogo} alt="EduNova" className="h-14" />
           <p className="text-sm text-muted-foreground mt-3 max-w-xs leading-relaxed">
             AI-powered learning platform for coding and new technologies. From beginners to career-ready engineers.
           </p>
