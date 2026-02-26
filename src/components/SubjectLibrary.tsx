@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { subjectDisplayNames } from "@/data/learningData";
 
 const coreCSE = [
   "Data Structures & Algorithms", "Operating Systems", "DBMS", "Computer Networks",
@@ -10,20 +12,26 @@ const aiData = [
   "Computer Vision", "Generative AI", "MLOps", "Mathematics for ML",
 ];
 
-const SubjectCard = ({ name, idx }: { name: string; idx: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 15 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: idx * 0.03 }}
-    className="bg-card rounded-xl p-5 border border-border card-hover group flex flex-col justify-between"
-  >
-    <h4 className="font-display font-semibold text-sm text-card-foreground mb-3">{name}</h4>
-    <span className="text-xs font-semibold text-primary group-hover:underline cursor-pointer">
-      View Topics →
-    </span>
-  </motion.div>
-);
+const SubjectCard = ({ name, idx }: { name: string; idx: number }) => {
+  const navigate = useNavigate();
+  const slug = subjectDisplayNames[name];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: idx * 0.03 }}
+      className="bg-card rounded-xl p-5 border border-border card-hover group flex flex-col justify-between cursor-pointer"
+      onClick={() => slug && navigate(`/subjects/${slug}`)}
+    >
+      <h4 className="font-display font-semibold text-sm text-card-foreground mb-3">{name}</h4>
+      <span className="text-xs font-semibold text-primary group-hover:underline">
+        View Topics →
+      </span>
+    </motion.div>
+  );
+};
 
 const SubjectLibrary = () => (
   <section className="py-24 section-gradient" id="subjects">
