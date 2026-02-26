@@ -17,7 +17,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         <a href="#" className="font-display text-xl font-bold gradient-text">
-          AlgoNE Learn
+          EduNova
         </a>
 
         {/* Desktop */}
