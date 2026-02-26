@@ -12,7 +12,7 @@ const FinalCTA = () => (
       >
         <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6 max-w-3xl mx-auto leading-tight">
           Start Your Journey to Becoming a Software or{" "}
-          <span className="gradient-text">AI Engineer</span> Today.
+          <span className="gradient-text">Tech Career</span> Today.
         </h2>
         <p className="text-primary-foreground/60 max-w-lg mx-auto mb-8">
           Join thousands of learners building their dream careers in tech.

@@ -11,9 +11,9 @@ const Footer = () => (
     <div className="container mx-auto px-6">
       <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
         <div className="lg:col-span-2">
-          <span className="font-display text-xl font-bold gradient-text">AlgoNE Learn</span>
+          <span className="font-display text-xl font-bold gradient-text">EduNova</span>
           <p className="text-sm text-muted-foreground mt-3 max-w-xs leading-relaxed">
-            AI-powered Computer Science learning for every age and level. From curious kids to career-ready engineers.
+            AI-powered learning platform for coding and new technologies. From beginners to career-ready engineers.
           </p>
           <div className="flex gap-3 mt-5">
             {[Twitter, Linkedin, Youtube, Github].map((Icon, i) => (
@@ -43,7 +43,7 @@ const Footer = () => (
         ))}
       </div>
       <div className="border-t border-border pt-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} AlgoNE Learn. All rights reserved.
+        © {new Date().getFullYear()} EduNova. All rights reserved. An <span className="font-semibold text-foreground">Aureon</span> Product.
       </div>
     </div>
   </footer>
