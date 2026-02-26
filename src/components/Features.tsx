@@ -18,11 +18,11 @@ const features = [
 ];
 
 const Features = () => (
-  <section className="py-24 section-alt" id="features">
+  <section className="py-24 section-gradient-alt" id="features">
     <div className="container mx-auto px-6">
       <div className="text-center mb-14">
-        <h2 className="font-display text-3xl sm:text-4xl italic mb-4">
-          Platform <span className="text-accent">Features</span>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+          Platform <span className="gradient-text">Features</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
           Everything you need to learn, practice, and grow — all in one place.
@@ -36,12 +36,12 @@ const Features = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.04 }}
-            className="card-elevated rounded-xl p-5 card-hover text-center"
+            className="bg-card rounded-xl p-5 border border-border card-hover text-center"
           >
-            <div className="icon-box mx-auto mb-3">
+            <div className="w-10 h-10 mx-auto rounded-lg gradient-btn flex items-center justify-center mb-3 text-primary-foreground">
               <f.icon size={18} />
             </div>
-            <h4 className="font-semibold text-sm text-card-foreground mb-1">{f.title}</h4>
+            <h4 className="font-display font-semibold text-sm text-card-foreground mb-1">{f.title}</h4>
             <p className="text-xs text-muted-foreground">{f.desc}</p>
           </motion.div>
         ))}

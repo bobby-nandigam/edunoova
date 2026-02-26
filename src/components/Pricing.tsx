@@ -15,20 +15,21 @@ const plans = [
 ];
 
 const Pricing = () => (
-  <section className="py-24 section-light" id="pricing">
+  <section className="py-24 section-gradient" id="pricing">
     <div className="container mx-auto px-6">
       <div className="text-center mb-14">
-        <h2 className="font-display text-3xl sm:text-4xl italic mb-4">
-          Free vs <span className="text-accent">Premium</span>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+          Free vs <span className="gradient-text">Premium</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
           Start free, upgrade when you're ready for the full experience.
         </p>
       </div>
 
+      {/* Comparison */}
       <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-16">
-        <div className="card-elevated rounded-xl p-6">
-          <h3 className="font-semibold text-lg mb-4">Free</h3>
+        <div className="bg-card rounded-xl p-6 border border-border">
+          <h3 className="font-display font-bold text-lg mb-4">Free</h3>
           <ul className="space-y-3">
             {free.map((f) => (
               <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -42,8 +43,8 @@ const Pricing = () => (
             ))}
           </ul>
         </div>
-        <div className="card-elevated rounded-xl p-6 border-2 border-primary">
-          <h3 className="font-semibold text-lg mb-4 text-primary">Premium</h3>
+        <div className="bg-card rounded-xl p-6 border-2 border-primary glow">
+          <h3 className="font-display font-bold text-lg mb-4 gradient-text">Premium</h3>
           <ul className="space-y-3">
             {premium.map((f) => (
               <li key={f} className="flex items-center gap-2 text-sm text-card-foreground">
@@ -54,6 +55,7 @@ const Pricing = () => (
         </div>
       </div>
 
+      {/* Pricing cards */}
       <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
         {plans.map((p) => (
           <motion.div
@@ -63,16 +65,16 @@ const Pricing = () => (
             viewport={{ once: true }}
             className={`rounded-xl p-6 text-center card-hover ${
               p.highlight
-                ? "card-elevated border-2 border-primary"
-                : "card-elevated"
+                ? "bg-card border-2 border-primary glow"
+                : "bg-card border border-border"
             }`}
           >
             {p.badge && (
-              <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold bg-primary text-primary-foreground mb-3">
+              <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold gradient-btn text-primary-foreground mb-3">
                 {p.badge}
               </span>
             )}
-            <h4 className="font-semibold mb-2">{p.name}</h4>
+            <h4 className="font-display font-semibold mb-2">{p.name}</h4>
             <div className="mb-4">
               <span className="text-3xl font-bold">{p.price}</span>
               <span className="text-sm text-muted-foreground">{p.period}</span>
@@ -81,7 +83,7 @@ const Pricing = () => (
               href="#onboarding"
               className={`block w-full py-2.5 rounded-lg text-sm font-semibold transition-all ${
                 p.highlight
-                  ? "bg-primary text-primary-foreground hover:opacity-90"
+                  ? "gradient-btn text-primary-foreground"
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
               }`}
             >
