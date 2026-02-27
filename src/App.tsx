@@ -6,6 +6,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import PathDetail from "./pages/PathDetail";
 import SubjectDetail from "./pages/SubjectDetail";
+import Practice from "./pages/Practice";
+import Compiler from "./pages/Compiler";
+import Topics from "./pages/Topics";
+import Streak from "./pages/Streak";
+import Discussions from "./pages/Discussions";
+import AIDebug from "./pages/AIDebug";
+import MockTests from "./pages/MockTests";
+import InterviewPrep from "./pages/InterviewPrep";
+import Leaderboard from "./pages/Leaderboard";
+import SystemDesign from "./pages/SystemDesign";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,7 +30,16 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/paths/:slug" element={<PathDetail />} />
           <Route path="/subjects/:slug" element={<SubjectDetail />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/practice" element={<Practice />} />
+          <Route path="/compiler" element={<Compiler />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/streak" element={<Streak />} />
+          <Route path="/discussions" element={<Discussions />} />
+          <Route path="/ai-debug" element={<AIDebug />} />
+          <Route path="/mock-tests" element={<MockTests />} />
+          <Route path="/interview-prep" element={<InterviewPrep />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/system-design" element={<SystemDesign />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
