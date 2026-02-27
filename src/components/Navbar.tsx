@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, Code2, BookOpen, Zap, Flame, Terminal, Layout, Trophy, MessageSquare, Bug, FileText, Target, BarChart3 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import edunovaLogo from "@/assets/edunova-logo.png";
 
 const navLinks = [
@@ -13,52 +13,57 @@ const navLinks = [
 ];
 
 const quickLinks = [
-  { label: "🧠 Practice DSA", href: "#learning-paths", highlight: true },
-  { label: "📚 Topics", href: "#subjects" },
-  { label: "🟢 Easy", href: "#learning-paths" },
-  { label: "🔴 Hard", href: "#learning-paths" },
-  { label: "⚙️ Compilers", href: "/subjects/compilers", route: true },
-  { label: "🏗️ System Design", href: "/subjects/software-engineering", route: true },
-  { label: "🔥 Streak", href: "#features" },
-  { label: "💬 Discussions", href: "#faq" },
-  { label: "🤖 AI Debug", href: "#features" },
-  { label: "📝 Mock Tests", href: "#learning-paths" },
-  { label: "🎯 Interview Prep", href: "#learning-paths" },
-  { label: "📊 Leaderboard", href: "#features" },
+  { label: "Practice", icon: Code2, href: "/practice", highlight: true },
+  { label: "Topics", icon: BookOpen, href: "/topics" },
+  { label: "Easy", icon: Zap, href: "/practice?difficulty=easy" },
+  { label: "Hard", icon: Flame, href: "/practice?difficulty=hard" },
+  { label: "Compiler", icon: Terminal, href: "/compiler" },
+  { label: "System Design", icon: Layout, href: "/system-design" },
+  { label: "Streak", icon: Trophy, href: "/streak" },
+  { label: "Discussions", icon: MessageSquare, href: "/discussions" },
+  { label: "AI Debug", icon: Bug, href: "/ai-debug" },
+  { label: "Mock Tests", icon: FileText, href: "/mock-tests" },
+  { label: "Interview Prep", icon: Target, href: "/interview-prep" },
+  { label: "Leaderboard", icon: BarChart3, href: "/leaderboard" },
 ];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleQuickLink = (link: typeof quickLinks[0]) => {
-    if (link.route) {
-      navigate(link.href);
+  const handleQuickLink = (href: string) => {
+    navigate(href);
+    setOpen(false);
+  };
+
+  const handleNavLink = (href: string) => {
+    if (location.pathname !== "/") {
+      navigate("/" + href);
     } else {
-      window.location.hash = link.href.replace("#", "");
+      const el = document.querySelector(href);
+      el?.scrollIntoView({ behavior: "smooth" });
     }
     setOpen(false);
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
-      {/* Main nav */}
       <div className="glass">
         <div className="container mx-auto flex items-center justify-between px-6 py-4">
-          <a href="#" className="flex items-center">
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate("/"); }} className="flex items-center">
             <img src={edunovaLogo} alt="EduNova" className="h-10" />
           </a>
 
-          {/* Desktop */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((l) => (
-              <a
+              <button
                 key={l.label}
-                href={l.href}
+                onClick={() => handleNavLink(l.href)}
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {l.label}
-              </a>
+              </button>
             ))}
             <a
               href="#onboarding"
@@ -68,27 +73,27 @@ const Navbar = () => {
             </a>
           </div>
 
-          {/* Mobile toggle */}
           <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
             {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Quick access bar — Desktop */}
+      {/* Quick access bar */}
       <div className="hidden md:block border-b border-border bg-card/80 backdrop-blur-md">
         <div className="container mx-auto px-6">
           <div className="flex items-center gap-1 py-1.5 overflow-x-auto scrollbar-hide">
             {quickLinks.map((link) => (
               <button
                 key={link.label}
-                onClick={() => handleQuickLink(link)}
-                className={`whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-medium transition-all hover:scale-105 ${
+                onClick={() => handleQuickLink(link.href)}
+                className={`whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all hover:scale-105 ${
                   link.highlight
                     ? "gradient-btn text-primary-foreground shadow-sm"
                     : "bg-secondary text-secondary-foreground hover:bg-primary/10 hover:text-primary"
                 }`}
               >
+                <link.icon size={13} />
                 {link.label}
               </button>
             ))}
@@ -107,30 +112,29 @@ const Navbar = () => {
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((l) => (
-                <a
+                <button
                   key={l.label}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground"
+                  onClick={() => handleNavLink(l.href)}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground text-left"
                 >
                   {l.label}
-                </a>
+                </button>
               ))}
 
-              {/* Quick links in mobile */}
               <div className="border-t border-border pt-4 mt-2">
                 <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">Quick Access</p>
                 <div className="flex flex-wrap gap-2">
                   {quickLinks.map((link) => (
                     <button
                       key={link.label}
-                      onClick={() => handleQuickLink(link)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium ${
+                      onClick={() => handleQuickLink(link.href)}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium ${
                         link.highlight
                           ? "gradient-btn text-primary-foreground"
                           : "bg-secondary text-secondary-foreground"
                       }`}
                     >
+                      <link.icon size={12} />
                       {link.label}
                     </button>
                   ))}
