@@ -1,7 +1,16 @@
 import { useState } from "react";
-import { Menu, X, Code2, BookOpen, Zap, Flame, Terminal, Layout, Trophy, MessageSquare, Bug, FileText, Target, BarChart3 } from "lucide-react";
+import { Menu, X, Code2, BookOpen, Zap, Flame, Terminal, Layout, Trophy, MessageSquare, Bug, FileText, Target, BarChart3, LogOut, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import edunovaLogo from "@/assets/edunova-logo.png";
 
 const navLinks = [
@@ -31,8 +40,13 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, profile, signOut } = useAuth();
 
   const handleQuickLink = (href: string) => {
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
     navigate(href);
     setOpen(false);
   };
@@ -46,6 +60,15 @@ const Navbar = () => {
     }
     setOpen(false);
   };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
+
+  const initials = profile?.display_name
+    ? profile.display_name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
+    : user?.email?.[0]?.toUpperCase() || "U";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
@@ -65,12 +88,52 @@ const Navbar = () => {
                 {l.label}
               </button>
             ))}
-            <a
-              href="#onboarding"
-              className="gradient-btn px-5 py-2 rounded-lg text-sm font-semibold text-primary-foreground transition-all hover:shadow-lg"
-            >
-              Start Free
-            </a>
+
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-2 focus:outline-none">
+                    <Avatar className="h-8 w-8 border-2 border-primary/30">
+                      <AvatarImage src={profile?.avatar_url || undefined} />
+                      <AvatarFallback className="bg-primary text-primary-foreground text-xs font-bold">
+                        {initials}
+                      </AvatarFallback>
+                    </Avatar>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <div className="px-2 py-1.5">
+                    <p className="text-sm font-medium">{profile?.display_name || "User"}</p>
+                    <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate("/streak")}>
+                    <User className="mr-2 h-4 w-4" />
+                    My Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => navigate("/auth")}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => navigate("/auth")}
+                  className="gradient-btn px-5 py-2 rounded-lg text-sm font-semibold text-primary-foreground transition-all hover:shadow-lg"
+                >
+                  Get Started
+                </button>
+              </div>
+            )}
           </div>
 
           <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
@@ -79,7 +142,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Quick access bar */}
+      {/* Quick access bar - visible to all, requires login to navigate */}
       <div className="hidden md:block border-b border-border bg-card/80 backdrop-blur-md">
         <div className="container mx-auto px-6">
           <div className="flex items-center gap-1 py-1.5 overflow-x-auto scrollbar-hide">
@@ -141,13 +204,32 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <a
-                href="#onboarding"
-                onClick={() => setOpen(false)}
-                className="gradient-btn px-5 py-2.5 rounded-lg text-sm font-semibold text-primary-foreground text-center mt-2"
-              >
-                Start Free
-              </a>
+              {user ? (
+                <div className="border-t border-border pt-4 mt-2 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={profile?.avatar_url || undefined} />
+                      <AvatarFallback className="bg-primary text-primary-foreground text-xs font-bold">
+                        {initials}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="text-sm font-medium">{profile?.display_name || "User"}</p>
+                      <p className="text-xs text-muted-foreground">{user.email}</p>
+                    </div>
+                  </div>
+                  <button onClick={handleSignOut} className="text-destructive">
+                    <LogOut size={18} />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => { navigate("/auth"); setOpen(false); }}
+                  className="gradient-btn px-5 py-2.5 rounded-lg text-sm font-semibold text-primary-foreground text-center mt-2"
+                >
+                  Sign In / Get Started
+                </button>
+              )}
             </div>
           </motion.div>
         )}

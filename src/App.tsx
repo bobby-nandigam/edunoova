@@ -3,7 +3,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import PathDetail from "./pages/PathDetail";
 import SubjectDetail from "./pages/SubjectDetail";
 import Practice from "./pages/Practice";
@@ -26,22 +28,25 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/paths/:slug" element={<PathDetail />} />
-          <Route path="/subjects/:slug" element={<SubjectDetail />} />
-          <Route path="/practice" element={<Practice />} />
-          <Route path="/compiler" element={<Compiler />} />
-          <Route path="/topics" element={<Topics />} />
-          <Route path="/streak" element={<Streak />} />
-          <Route path="/discussions" element={<Discussions />} />
-          <Route path="/ai-debug" element={<AIDebug />} />
-          <Route path="/mock-tests" element={<MockTests />} />
-          <Route path="/interview-prep" element={<InterviewPrep />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/system-design" element={<SystemDesign />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/paths/:slug" element={<PathDetail />} />
+            <Route path="/subjects/:slug" element={<SubjectDetail />} />
+            <Route path="/practice" element={<Practice />} />
+            <Route path="/compiler" element={<Compiler />} />
+            <Route path="/topics" element={<Topics />} />
+            <Route path="/streak" element={<Streak />} />
+            <Route path="/discussions" element={<Discussions />} />
+            <Route path="/ai-debug" element={<AIDebug />} />
+            <Route path="/mock-tests" element={<MockTests />} />
+            <Route path="/interview-prep" element={<InterviewPrep />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/system-design" element={<SystemDesign />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
