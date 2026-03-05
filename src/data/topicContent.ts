@@ -533,6 +533,25 @@ def fibonacci(n):
   ]
 };
 
+import { computerNetworksTopics, oopTopics, compilersTopics, tocTopics, softwareEngineeringTopics, computerOrgTopics } from "./topicsCoreCSEExtended";
+import { machineLearningTopics, deepLearningTopics, dataScienceTopics, nlpTopics, computerVisionTopics, generativeAITopics, mlopsTopics, mathForMLTopics } from "./topicsAIDataScience";
+
+// Register all extended topic content
+topicContent["computer-networks"] = computerNetworksTopics;
+topicContent["oop"] = oopTopics;
+topicContent["compilers"] = compilersTopics;
+topicContent["theory-of-computation"] = tocTopics;
+topicContent["software-engineering"] = softwareEngineeringTopics;
+topicContent["computer-organization"] = computerOrgTopics;
+topicContent["machine-learning"] = machineLearningTopics;
+topicContent["deep-learning"] = deepLearningTopics;
+topicContent["data-science"] = dataScienceTopics;
+topicContent["nlp"] = nlpTopics;
+topicContent["computer-vision"] = computerVisionTopics;
+topicContent["generative-ai"] = generativeAITopics;
+topicContent["mlops"] = mlopsTopics;
+topicContent["mathematics-for-ml"] = mathForMLTopics;
+
 // Generate placeholder content for subjects not yet detailed
 const placeholderTopics = (subjectSlug: string, topics: string[]): TopicContent[] => {
   return topics.map((topic, i) => ({
