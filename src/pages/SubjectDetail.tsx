@@ -213,29 +213,48 @@ const SubjectDetail = () => {
                 <div className="mb-8">
                   <div className="flex items-center gap-2 mb-4">
                     <PlayCircle size={18} className="text-primary" />
-                    <h3 className="font-display font-semibold text-lg">Hands-On Exercises</h3>
+                    <h3 className="font-display font-semibold text-lg">Hands-On Practice</h3>
                   </div>
                   <div className="space-y-4">
-                    {currentTopic.handsOn.map((exercise, i) => (
-                      <div key={i} className="bg-card border border-border rounded-xl p-5">
-                        <div className="flex items-start gap-3">
-                          <span className="w-7 h-7 rounded-lg gradient-btn flex items-center justify-center text-primary-foreground text-xs font-bold shrink-0">
-                            {i + 1}
-                          </span>
-                          <div className="flex-1">
-                            <p className="text-sm font-medium text-foreground mb-2">{exercise.task}</p>
-                            <details className="group">
-                              <summary className="text-xs font-medium text-primary cursor-pointer hover:underline">
-                                Show Hint
-                              </summary>
-                              <p className="text-xs text-muted-foreground mt-2 pl-3 border-l-2 border-primary/30">
-                                {exercise.hint}
-                              </p>
-                            </details>
+                    {currentTopic.handsOn.map((exercise, i) => {
+                      const isCoding = exercise.task.toLowerCase().includes("implement") ||
+                        exercise.task.toLowerCase().includes("build") ||
+                        exercise.task.toLowerCase().includes("write") ||
+                        exercise.task.toLowerCase().includes("create") ||
+                        exercise.task.toLowerCase().includes("code") ||
+                        exercise.task.toLowerCase().includes("simulate") ||
+                        exercise.task.toLowerCase().includes("program");
+                      return (
+                        <div key={i} className="bg-card border border-border rounded-xl p-5">
+                          <div className="flex items-start gap-3">
+                            <span className="w-7 h-7 rounded-lg gradient-btn flex items-center justify-center text-primary-foreground text-xs font-bold shrink-0">
+                              {i + 1}
+                            </span>
+                            <div className="flex-1">
+                              <p className="text-sm font-medium text-foreground mb-2">{exercise.task}</p>
+                              <div className="flex items-center gap-3 mt-3">
+                                <details className="group flex-1">
+                                  <summary className="text-xs font-medium text-primary cursor-pointer hover:underline">
+                                    Show Hint
+                                  </summary>
+                                  <p className="text-xs text-muted-foreground mt-2 pl-3 border-l-2 border-primary/30">
+                                    {exercise.hint}
+                                  </p>
+                                </details>
+                                {isCoding && (
+                                  <Link to="/compiler" className="shrink-0">
+                                    <Button size="sm" variant="outline" className="text-xs gap-1.5 border-primary/30 text-primary hover:bg-primary/10">
+                                      <Code2 size={12} />
+                                      Try in Compiler
+                                    </Button>
+                                  </Link>
+                                )}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
