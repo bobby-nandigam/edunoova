@@ -45,6 +45,8 @@ const App = () => (
             <Route path="/interview-prep" element={<InterviewPrep />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/system-design" element={<SystemDesign />} />
+            <Route path="/system-design" element={<SystemDesign />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
