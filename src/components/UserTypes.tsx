@@ -1,9 +1,6 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import {
-  Code, BookOpen, Laptop, Target, Brain, Briefcase,
-} from "lucide-react";
+import { Clock, BookOpen, Code2, ChevronRight, Layers } from "lucide-react";
 import { userTypes } from "@/data/learningData";
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.07 } } };
@@ -37,14 +34,32 @@ const UserTypes = () => {
               className="bg-card rounded-xl p-6 border border-border card-hover cursor-pointer group"
               onClick={() => navigate(`/paths/${t.slug}`)}
             >
-              <div className="w-11 h-11 rounded-lg gradient-btn flex items-center justify-center mb-4 text-primary-foreground">
-                <t.icon size={20} />
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-11 h-11 rounded-lg gradient-btn flex items-center justify-center text-primary-foreground shrink-0">
+                  <t.icon size={20} />
+                </div>
+                <div>
+                  <h3 className="font-display font-semibold text-card-foreground">{t.title}</h3>
+                  <span className="text-[11px] text-muted-foreground">{t.stats.paths} paths · {t.stats.hours}+ hours</span>
+                </div>
               </div>
-              <h3 className="font-display font-semibold text-card-foreground mb-1.5">{t.title}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{t.desc}</p>
-              <span className="text-xs font-semibold text-primary group-hover:underline">
-                Explore Path →
-              </span>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{t.longDesc}</p>
+
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {t.idealFor.slice(0, 2).map((tag) => (
+                  <span key={tag} className="text-[10px] bg-muted text-muted-foreground px-2 py-0.5 rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-4 text-xs text-muted-foreground pt-3 border-t border-border">
+                <span className="flex items-center gap-1"><Layers size={12} /> {t.stats.paths} Paths</span>
+                <span className="flex items-center gap-1"><Code2 size={12} /> {t.stats.projects}+ Projects</span>
+                <span className="ml-auto text-primary font-semibold group-hover:underline flex items-center gap-0.5">
+                  Explore <ChevronRight size={12} />
+                </span>
+              </div>
             </motion.div>
           ))}
         </motion.div>
