@@ -214,13 +214,12 @@ const PathDetail = () => {
   const { user } = useAuth();
   const userType = userTypes.find((t) => t.slug === slug);
 
-  const handleStartPath = (pathTitle: string) => {
+  const handleStartPath = (pathIndex: number) => {
     if (!user) {
       toast({ title: "Sign in required", description: "Create an account to start this learning path." });
       navigate("/auth");
     } else {
-      toast({ title: "🚀 Path Started!", description: `You've enrolled in "${pathTitle}". Start learning now!` });
-      navigate("/topics");
+      navigate(`/learn/${slug}/${pathIndex}`);
     }
   };
 
