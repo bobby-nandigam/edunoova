@@ -320,7 +320,7 @@ const PathDetail = () => {
                 Join thousands of learners on the {userType.title} track.
               </p>
               <button
-                onClick={() => handleStartPath(userType.paths[0].title)}
+                onClick={() => handleStartPath(0)}
                 className="gradient-btn inline-flex items-center gap-2 px-8 py-3 rounded-xl text-sm font-semibold text-primary-foreground shadow-lg hover:shadow-xl transition-all"
               >
                 <Play size={16} /> Get Started Now
