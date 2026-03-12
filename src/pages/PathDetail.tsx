@@ -214,13 +214,12 @@ const PathDetail = () => {
   const { user } = useAuth();
   const userType = userTypes.find((t) => t.slug === slug);
 
-  const handleStartPath = (pathTitle: string) => {
+  const handleStartPath = (pathIndex: number) => {
     if (!user) {
       toast({ title: "Sign in required", description: "Create an account to start this learning path." });
       navigate("/auth");
     } else {
-      toast({ title: "🚀 Path Started!", description: `You've enrolled in "${pathTitle}". Start learning now!` });
-      navigate("/topics");
+      navigate(`/learn/${slug}/${pathIndex}`);
     }
   };
 
@@ -294,7 +293,7 @@ const PathDetail = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => handleStartPath(userType.paths[0].title)}
+                  onClick={() => handleStartPath(0)}
                   className="gradient-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-primary-foreground shadow-lg hover:shadow-xl transition-all shrink-0"
                 >
                   <Rocket size={16} /> Get Started Now
@@ -309,7 +308,7 @@ const PathDetail = () => {
               <BarChart3 size={18} className="text-primary" /> Learning Paths ({userType.paths.length})
             </h2>
             {userType.paths.map((path, i) => (
-              <PathCard key={path.title} path={path} pathIndex={i} onStart={() => handleStartPath(path.title)} />
+              <PathCard key={path.title} path={path} pathIndex={i} onStart={() => handleStartPath(i)} />
             ))}
           </div>
 
@@ -321,7 +320,7 @@ const PathDetail = () => {
                 Join thousands of learners on the {userType.title} track.
               </p>
               <button
-                onClick={() => handleStartPath(userType.paths[0].title)}
+                onClick={() => handleStartPath(0)}
                 className="gradient-btn inline-flex items-center gap-2 px-8 py-3 rounded-xl text-sm font-semibold text-primary-foreground shadow-lg hover:shadow-xl transition-all"
               >
                 <Play size={16} /> Get Started Now

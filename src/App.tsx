@@ -19,6 +19,7 @@ import InterviewPrep from "./pages/InterviewPrep";
 import Leaderboard from "./pages/Leaderboard";
 import SystemDesign from "./pages/SystemDesign";
 import ResetPassword from "./pages/ResetPassword";
+import PathLearn from "./pages/PathLearn";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/paths/:slug" element={<PathDetail />} />
+            <Route path="/learn/:slug/:pathIndex" element={<PathLearn />} />
             <Route path="/subjects/:slug" element={<SubjectDetail />} />
             <Route path="/practice" element={<Practice />} />
             <Route path="/compiler" element={<Compiler />} />
