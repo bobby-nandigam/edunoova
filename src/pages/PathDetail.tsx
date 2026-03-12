@@ -308,7 +308,7 @@ const PathDetail = () => {
               <BarChart3 size={18} className="text-primary" /> Learning Paths ({userType.paths.length})
             </h2>
             {userType.paths.map((path, i) => (
-              <PathCard key={path.title} path={path} pathIndex={i} onStart={() => handleStartPath(path.title)} />
+              <PathCard key={path.title} path={path} pathIndex={i} onStart={() => handleStartPath(i)} />
             ))}
           </div>
 
