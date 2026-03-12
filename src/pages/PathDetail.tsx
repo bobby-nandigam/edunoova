@@ -293,7 +293,7 @@ const PathDetail = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => handleStartPath(userType.paths[0].title)}
+                  onClick={() => handleStartPath(0)}
                   className="gradient-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-primary-foreground shadow-lg hover:shadow-xl transition-all shrink-0"
                 >
                   <Rocket size={16} /> Get Started Now
