@@ -215,12 +215,7 @@ const PathDetail = () => {
   const userType = userTypes.find((t) => t.slug === slug);
 
   const handleStartPath = (pathIndex: number) => {
-    if (!user) {
-      toast({ title: "Sign in required", description: "Create an account to start this learning path." });
-      navigate("/auth");
-    } else {
-      navigate(`/learn/${slug}/${pathIndex}`);
-    }
+    navigate(`/learn/${slug}/${pathIndex}`);
   };
 
   if (!userType) {
