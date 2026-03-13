@@ -20,6 +20,7 @@ import Leaderboard from "./pages/Leaderboard";
 import SystemDesign from "./pages/SystemDesign";
 import ResetPassword from "./pages/ResetPassword";
 import PathLearn from "./pages/PathLearn";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
