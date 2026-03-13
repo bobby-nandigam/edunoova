@@ -50,6 +50,7 @@ const App = () => (
             <Route path="/system-design" element={<SystemDesign />} />
             <Route path="/system-design" element={<SystemDesign />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
