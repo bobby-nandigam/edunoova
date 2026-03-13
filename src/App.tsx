@@ -20,6 +20,7 @@ import Leaderboard from "./pages/Leaderboard";
 import SystemDesign from "./pages/SystemDesign";
 import ResetPassword from "./pages/ResetPassword";
 import PathLearn from "./pages/PathLearn";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/system-design" element={<SystemDesign />} />
             <Route path="/system-design" element={<SystemDesign />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
