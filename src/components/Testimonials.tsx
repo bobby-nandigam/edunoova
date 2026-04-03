@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 const testimonials = [
-  { name: "Priya Sharma", role: "B.Tech CSE, IIT Delhi", text: "AlgoNE Learn transformed my placement prep. The structured DSA track helped me crack Google's interview.", rating: 5, avatar: "PS" },
-  { name: "Arjun Mehta", role: "High School Student", text: "I started at age 14 and now I can build full apps in Python. The AI mentor is like having a personal tutor!", rating: 5, avatar: "AM" },
+  { name: "Priya Sharma", role: "B.Tech CSE, IIT Delhi", text: "Edunova transformed my placement prep. The structured DSA track helped me crack Google's interview.", rating: 5, avatar: "PS" },
+  { name: "Arjun Mehta", role: "Software Developer", text: "I went from zero coding experience to building full apps in 4 months. The AI mentor is incredible!", rating: 5, avatar: "AM" },
   { name: "Sneha Reddy", role: "ML Engineer at Amazon", text: "The AI/ML track is genuinely world-class. Went from basics to deploying production models in 6 months.", rating: 5, avatar: "SR" },
-  { name: "Rahul Verma", role: "Placement Aspirant", text: "Got placed at Microsoft thanks to the interview prep module. The mock interviews with AI were incredibly helpful.", rating: 5, avatar: "RV" },
+  { name: "Rahul Verma", role: "Placed at Microsoft", text: "Got placed at Microsoft thanks to the interview prep module. The gamified quizzes kept me motivated!", rating: 5, avatar: "RV" },
 ];
 
 const Testimonials = () => (
@@ -16,7 +16,7 @@ const Testimonials = () => (
           Loved by <span className="gradient-text">Learners</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto">
-          Join thousands who've accelerated their CS careers with AlgoNE Learn.
+          Join thousands who've accelerated their tech careers with Edunova.
         </p>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
