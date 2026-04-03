@@ -1,30 +1,24 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, Circle,
   BookOpen, Code2, Clock, Layers, Play, Lock, Trophy,
-  Lightbulb, Target, Rocket,
+  Lightbulb, Target, Rocket, Zap, Star, Award, RefreshCw,
+  Timer, Shield, Flame,
 } from "lucide-react";
 import { userTypes } from "@/data/learningData";
 import type { PathModule } from "@/data/learningData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Progress } from "@/components/ui/progress";
+import ModuleChallenge from "@/components/ModuleChallenge";
 
 /* ─── Topic content card ─── */
 const TopicCard = ({
-  topic,
-  index,
-  isActive,
-  isCompleted,
-  onSelect,
+  topic, index, isActive, isCompleted, onSelect,
 }: {
-  topic: string;
-  index: number;
-  isActive: boolean;
-  isCompleted: boolean;
-  onSelect: () => void;
+  topic: string; index: number; isActive: boolean; isCompleted: boolean; onSelect: () => void;
 }) => (
   <button
     onClick={onSelect}
@@ -49,19 +43,11 @@ const TopicCard = ({
 
 /* ─── Module sidebar section ─── */
 const ModuleSection = ({
-  module,
-  moduleIndex,
-  activeModule,
-  activeTopic,
-  completedTopics,
-  onSelectTopic,
+  module, moduleIndex, activeModule, activeTopic, completedTopics, onSelectTopic, challengeCompleted,
 }: {
-  module: PathModule;
-  moduleIndex: number;
-  activeModule: number;
-  activeTopic: number;
-  completedTopics: Set<string>;
-  onSelectTopic: (mod: number, topic: number) => void;
+  module: PathModule; moduleIndex: number; activeModule: number; activeTopic: number;
+  completedTopics: Set<string>; onSelectTopic: (mod: number, topic: number) => void;
+  challengeCompleted: boolean;
 }) => {
   const isActiveModule = moduleIndex === activeModule;
   const completedCount = module.topics.filter((_, i) =>
@@ -80,13 +66,15 @@ const ModuleSection = ({
             : "text-muted-foreground"
         }`}
       >
-        {allDone ? (
+        {allDone && challengeCompleted ? (
           <Trophy size={14} className="text-accent" />
+        ) : allDone ? (
+          <Zap size={14} className="text-amber-500" />
         ) : (
           <Layers size={14} />
         )}
         <span className="truncate flex-1">
-          Module {moduleIndex + 1}: {module.title}
+          M{moduleIndex + 1}: {module.title}
         </span>
         <span className="text-[10px] font-normal">
           {completedCount}/{module.topics.length}
@@ -104,6 +92,11 @@ const ModuleSection = ({
               onSelect={() => onSelectTopic(moduleIndex, tIdx)}
             />
           ))}
+          {allDone && !challengeCompleted && (
+            <div className="flex items-center gap-2 px-3 py-2 mt-1 text-xs text-amber-600 bg-amber-500/10 rounded-lg border border-amber-500/20">
+              <Flame size={12} /> Challenge unlocked!
+            </div>
+          )}
         </div>
       )}
       {!isActiveModule && (
@@ -120,17 +113,9 @@ const ModuleSection = ({
 
 /* ─── Main learning content ─── */
 const LearningContent = ({
-  topicName,
-  moduleName,
-  moduleIndex,
-  topicIndex,
-  totalTopicsInModule,
+  topicName, moduleName, moduleIndex, topicIndex, totalTopicsInModule,
 }: {
-  topicName: string;
-  moduleName: string;
-  moduleIndex: number;
-  topicIndex: number;
-  totalTopicsInModule: number;
+  topicName: string; moduleName: string; moduleIndex: number; topicIndex: number; totalTopicsInModule: number;
 }) => (
   <motion.div
     key={`${moduleIndex}-${topicIndex}`}
@@ -140,7 +125,6 @@ const LearningContent = ({
     transition={{ duration: 0.25 }}
     className="space-y-6"
   >
-    {/* Topic header */}
     <div>
       <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
         <Layers size={12} />
@@ -154,7 +138,6 @@ const LearningContent = ({
       </p>
     </div>
 
-    {/* Theory section */}
     <div className="bg-card border border-border rounded-xl p-5 sm:p-6">
       <h3 className="font-display font-semibold text-base flex items-center gap-2 mb-3 text-card-foreground">
         <BookOpen size={18} className="text-primary" /> Theory & Concepts
@@ -172,7 +155,6 @@ const LearningContent = ({
       </div>
     </div>
 
-    {/* Key points */}
     <div className="bg-card border border-border rounded-xl p-5 sm:p-6">
       <h3 className="font-display font-semibold text-base flex items-center gap-2 mb-3 text-card-foreground">
         <Target size={18} className="text-accent" /> Key Takeaways
@@ -184,21 +166,14 @@ const LearningContent = ({
           "Connect theory to real-world scenarios",
           "Build problem-solving intuition",
         ].map((point) => (
-          <div
-            key={point}
-            className="flex items-start gap-2 text-sm text-muted-foreground"
-          >
-            <CheckCircle2
-              size={14}
-              className="text-accent shrink-0 mt-0.5"
-            />
+          <div key={point} className="flex items-start gap-2 text-sm text-muted-foreground">
+            <CheckCircle2 size={14} className="text-accent shrink-0 mt-0.5" />
             {point}
           </div>
         ))}
       </div>
     </div>
 
-    {/* Practice prompt */}
     <div className="bg-primary/5 border border-primary/15 rounded-xl p-5 sm:p-6">
       <h3 className="font-display font-semibold text-base flex items-center gap-2 mb-2 text-card-foreground">
         <Lightbulb size={18} className="text-primary" /> Practice Exercise
@@ -229,6 +204,9 @@ const PathLearn = () => {
   const [activeModule, setActiveModule] = useState(0);
   const [activeTopic, setActiveTopic] = useState(0);
   const [completedTopics, setCompletedTopics] = useState<Set<string>>(new Set());
+  const [showChallenge, setShowChallenge] = useState(false);
+  const [completedChallenges, setCompletedChallenges] = useState<Set<number>>(new Set());
+  const [earnedXP, setEarnedXP] = useState(0);
 
   const totalTopics = useMemo(
     () => path?.modules.reduce((s, m) => s + m.topics.length, 0) ?? 0,
@@ -239,18 +217,21 @@ const PathLearn = () => {
     ? Math.round((completedTopics.size / totalTopics) * 100)
     : 0;
 
+  // Check if current module is fully completed
+  const isModuleComplete = useCallback((modIdx: number) => {
+    if (!path) return false;
+    const mod = path.modules[modIdx];
+    return mod.topics.every((_, i) => completedTopics.has(`${modIdx}-${i}`));
+  }, [path, completedTopics]);
+
   if (!userType || !path) {
     return (
       <main>
         <Navbar />
         <section className="min-h-screen flex items-center justify-center pt-20">
           <div className="text-center">
-            <h1 className="font-display text-2xl font-bold mb-4">
-              Path not found
-            </h1>
-            <Link to="/" className="text-primary hover:underline">
-              ← Back to Home
-            </Link>
+            <h1 className="font-display text-2xl font-bold mb-4">Path not found</h1>
+            <Link to="/" className="text-primary hover:underline">← Back to Home</Link>
           </div>
         </section>
         <Footer />
@@ -262,13 +243,25 @@ const PathLearn = () => {
   const currentTopic = currentModule?.topics[activeTopic] ?? "";
 
   const handleSelectTopic = (mod: number, topic: number) => {
+    setShowChallenge(false);
     setActiveModule(mod);
     setActiveTopic(topic);
   };
 
   const handleMarkComplete = () => {
     const key = `${activeModule}-${activeTopic}`;
-    setCompletedTopics((prev) => new Set(prev).add(key));
+    const newCompleted = new Set(completedTopics).add(key);
+    setCompletedTopics(newCompleted);
+
+    // Check if module just got completed → show challenge
+    const mod = path.modules[activeModule];
+    const moduleFullyDone = mod.topics.every((_, i) => newCompleted.has(`${activeModule}-${i}`));
+    
+    if (moduleFullyDone && !completedChallenges.has(activeModule)) {
+      setShowChallenge(true);
+      return; // Don't auto-advance, show challenge instead
+    }
+
     // Auto-advance
     if (activeTopic < currentModule.topics.length - 1) {
       setActiveTopic(activeTopic + 1);
@@ -278,7 +271,27 @@ const PathLearn = () => {
     }
   };
 
+  const handleChallengeComplete = (xp: number) => {
+    setCompletedChallenges((prev) => new Set(prev).add(activeModule));
+    setEarnedXP((prev) => prev + xp);
+    setShowChallenge(false);
+    // Advance to next module
+    if (activeModule < path.modules.length - 1) {
+      setActiveModule(activeModule + 1);
+      setActiveTopic(0);
+    }
+  };
+
+  const handleSkipChallenge = () => {
+    setShowChallenge(false);
+    if (activeModule < path.modules.length - 1) {
+      setActiveModule(activeModule + 1);
+      setActiveTopic(0);
+    }
+  };
+
   const handlePrev = () => {
+    setShowChallenge(false);
     if (activeTopic > 0) {
       setActiveTopic(activeTopic - 1);
     } else if (activeModule > 0) {
@@ -289,6 +302,7 @@ const PathLearn = () => {
   };
 
   const handleNext = () => {
+    setShowChallenge(false);
     if (activeTopic < currentModule.topics.length - 1) {
       setActiveTopic(activeTopic + 1);
     } else if (activeModule < path.modules.length - 1) {
@@ -298,9 +312,7 @@ const PathLearn = () => {
   };
 
   const isFirst = activeModule === 0 && activeTopic === 0;
-  const isLast =
-    activeModule === path.modules.length - 1 &&
-    activeTopic === currentModule.topics.length - 1;
+  const isLast = activeModule === path.modules.length - 1 && activeTopic === currentModule.topics.length - 1;
   const isCurrentCompleted = completedTopics.has(`${activeModule}-${activeTopic}`);
 
   return (
@@ -323,6 +335,11 @@ const PathLearn = () => {
               </h1>
             </div>
             <div className="flex items-center gap-3">
+              {earnedXP > 0 && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-600 bg-amber-500/10 px-2 py-1 rounded-full">
+                  <Zap size={12} /> {earnedXP} XP
+                </span>
+              )}
               <span className="text-xs text-muted-foreground font-medium">
                 {progress}% complete
               </span>
@@ -353,6 +370,7 @@ const PathLearn = () => {
                     activeTopic={activeTopic}
                     completedTopics={completedTopics}
                     onSelectTopic={handleSelectTopic}
+                    challengeCompleted={completedChallenges.has(mIdx)}
                   />
                 ))}
               </div>
@@ -387,46 +405,59 @@ const PathLearn = () => {
               </div>
 
               <AnimatePresence mode="wait">
-                <LearningContent
-                  topicName={currentTopic}
-                  moduleName={currentModule.title}
-                  moduleIndex={activeModule}
-                  topicIndex={activeTopic}
-                  totalTopicsInModule={currentModule.topics.length}
-                />
+                {showChallenge ? (
+                  <ModuleChallenge
+                    key={`challenge-${activeModule}`}
+                    moduleName={currentModule.title}
+                    moduleIndex={activeModule}
+                    topics={currentModule.topics}
+                    onComplete={handleChallengeComplete}
+                    onSkip={handleSkipChallenge}
+                  />
+                ) : (
+                  <LearningContent
+                    topicName={currentTopic}
+                    moduleName={currentModule.title}
+                    moduleIndex={activeModule}
+                    topicIndex={activeTopic}
+                    totalTopicsInModule={currentModule.topics.length}
+                  />
+                )}
               </AnimatePresence>
 
               {/* Bottom nav */}
-              <div className="flex items-center justify-between mt-6 pt-4 border-t border-border">
-                <button
-                  onClick={handlePrev}
-                  disabled={isFirst}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-card-foreground hover:bg-muted/50 transition-colors disabled:opacity-30 disabled:pointer-events-none"
-                >
-                  <ChevronLeft size={16} /> Previous
-                </button>
-
-                {!isCurrentCompleted ? (
+              {!showChallenge && (
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-border">
                   <button
-                    onClick={handleMarkComplete}
-                    className="gradient-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-primary-foreground shadow hover:shadow-lg transition-all"
+                    onClick={handlePrev}
+                    disabled={isFirst}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-card-foreground hover:bg-muted/50 transition-colors disabled:opacity-30 disabled:pointer-events-none"
                   >
-                    <CheckCircle2 size={16} /> Mark Complete & Continue
+                    <ChevronLeft size={16} /> Previous
                   </button>
-                ) : (
-                  <span className="text-xs text-accent flex items-center gap-1 font-medium">
-                    <CheckCircle2 size={14} /> Completed
-                  </span>
-                )}
 
-                <button
-                  onClick={handleNext}
-                  disabled={isLast}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-card-foreground hover:bg-muted/50 transition-colors disabled:opacity-30 disabled:pointer-events-none"
-                >
-                  Next <ChevronRight size={16} />
-                </button>
-              </div>
+                  {!isCurrentCompleted ? (
+                    <button
+                      onClick={handleMarkComplete}
+                      className="gradient-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-primary-foreground shadow hover:shadow-lg transition-all"
+                    >
+                      <CheckCircle2 size={16} /> Mark Complete & Continue
+                    </button>
+                  ) : (
+                    <span className="text-xs text-accent flex items-center gap-1 font-medium">
+                      <CheckCircle2 size={14} /> Completed
+                    </span>
+                  )}
+
+                  <button
+                    onClick={handleNext}
+                    disabled={isLast}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-card-foreground hover:bg-muted/50 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                  >
+                    Next <ChevronRight size={16} />
+                  </button>
+                </div>
+              )}
 
               {/* Completion banner */}
               {progress === 100 && (
@@ -437,10 +468,10 @@ const PathLearn = () => {
                 >
                   <Trophy size={32} className="mx-auto text-accent mb-2" />
                   <h3 className="font-display text-lg font-bold text-card-foreground">
-                    🎉 Path Completed!
+                    Path Completed!
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    You've finished all modules in "{path.title}". Amazing work!
+                    You've finished all modules in "{path.title}". Total XP earned: {earnedXP}
                   </p>
                   <Link
                     to={`/paths/${slug}`}
