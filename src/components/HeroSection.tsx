@@ -99,8 +99,8 @@ const HeroSection = () => {
                 <span>10,000+ learners</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Award size={14} className="text-accent" />
-                <span>95% placement rate</span>
+                <Sparkles size={14} className="text-accent" />
+                <span>AI-powered mentoring</span>
               </div>
             </div>
           </motion.div>

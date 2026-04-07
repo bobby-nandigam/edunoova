@@ -4,14 +4,14 @@ import { Check, X, ArrowRight, Sparkles } from "lucide-react";
 const free = ["Basic notes & intro topics", "Limited practice problems", "Community access", "Basic AI assistance"];
 const premium = [
   "Complete curriculum (50+ subjects)", "Unlimited AI mentor access", "500+ coding challenges",
-  "Placement & interview prep", "Real-world projects", "Personalized study plans",
+  "Advanced skill assessments", "Real-world projects", "Personalized study plans",
   "Downloadable resources", "Priority community support",
 ];
 
 const plans = [
   { name: "Monthly", price: "₹499", period: "/month", highlight: false, save: "" },
   { name: "Semester", price: "₹1,999", period: "/6 months", highlight: true, badge: "Best Value", save: "Save 33%" },
-  { name: "Placement Master", price: "₹3,999", period: "/year", highlight: false, save: "Save 50%" },
+  { name: "Pro Annual", price: "₹3,999", period: "/year", highlight: false, save: "Save 50%" },
 ];
 
 const Pricing = () => (

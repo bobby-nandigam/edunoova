@@ -7,7 +7,7 @@ import {
 const features = [
   { icon: Bot, title: "AI Mentor", desc: "Get instant help, explanations, and personalized guidance from an AI tutor that understands your level.", highlight: true },
   { icon: FileText, title: "Structured Notes", desc: "Comprehensive, beginner-to-expert notes for every topic." },
-  { icon: Award, title: "Exam & Interview Prep", desc: "Targeted practice for placements and tech interviews." },
+  { icon: Award, title: "Skill Assessments", desc: "Quizzes and challenges to validate your understanding." },
   { icon: HelpCircle, title: "Practice Challenges", desc: "500+ coding problems, quizzes, and hands-on exercises." },
   { icon: FolderKanban, title: "Real-World Projects", desc: "Build portfolio-worthy applications and systems." },
   { icon: RefreshCw, title: "Smart Revision", desc: "Spaced repetition algorithms to maximize retention." },

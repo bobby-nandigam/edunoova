@@ -7,7 +7,7 @@ const reasons = [
   { icon: Gamepad2, title: "Gamified Experience", desc: "Earn XP, unlock badges, and compete on leaderboards." },
   { icon: Zap, title: "Hands-On Practice", desc: "Built-in compiler, quizzes, and real coding challenges." },
   { icon: BarChart3, title: "Track Progress", desc: "Visual dashboards, streaks, and completion analytics." },
-  { icon: Shield, title: "Industry-Ready", desc: "Interview prep, system design, and placement-focused content." },
+  { icon: Shield, title: "Industry-Ready", desc: "Real-world projects, system design, and skills employers demand." },
 ];
 
 const WhyEdunova = () => (

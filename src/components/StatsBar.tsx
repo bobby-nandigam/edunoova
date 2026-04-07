@@ -6,7 +6,7 @@ const stats = [
   { icon: Users, value: 10000, suffix: "+", label: "Active Learners" },
   { icon: BookOpen, value: 50, suffix: "+", label: "Subjects" },
   { icon: Code2, value: 500, suffix: "+", label: "Practice Problems" },
-  { icon: GraduationCap, value: 95, suffix: "%", label: "Placement Rate" },
+  { icon: TrendingUp, value: 4, suffix: ".8★", label: "Learner Rating" },
 ];
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
