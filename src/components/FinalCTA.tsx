@@ -23,7 +23,7 @@ const FinalCTA = () => {
             <span className="gradient-text">Tech</span>?
           </h2>
           <p className="text-primary-foreground/50 max-w-lg mx-auto mb-10 leading-relaxed">
-            From your first line of code to your dream job — Edunova is with you every step of the way.
+            From your first line of code to mastering AI — Edunova is with you every step of the way.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button
