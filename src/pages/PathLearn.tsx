@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,6 +13,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Progress } from "@/components/ui/progress";
 import ModuleChallenge from "@/components/ModuleChallenge";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { recordActivity } from "@/hooks/useUserStats";
 
 /* ─── Topic content card ─── */
 const TopicCard = ({
@@ -196,6 +199,7 @@ const LearningContent = ({
 const PathLearn = () => {
   const { slug, pathIndex: pathIdxParam } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const pathIdx = Number(pathIdxParam || 0);
 
   const userType = userTypes.find((t) => t.slug === slug);
@@ -207,6 +211,25 @@ const PathLearn = () => {
   const [showChallenge, setShowChallenge] = useState(false);
   const [completedChallenges, setCompletedChallenges] = useState<Set<number>>(new Set());
   const [earnedXP, setEarnedXP] = useState(0);
+
+  // Load saved progress from database
+  useEffect(() => {
+    if (!user || !slug) return;
+    const loadProgress = async () => {
+      const { data } = await supabase
+        .from("user_progress")
+        .select("module_index, topic_index, xp_earned")
+        .eq("user_id", user.id)
+        .eq("path_slug", slug);
+
+      if (data && data.length > 0) {
+        const completed = new Set(data.map(d => `${d.module_index}-${d.topic_index}`));
+        setCompletedTopics(completed);
+        setEarnedXP(data.reduce((s, d) => s + (d.xp_earned || 0), 0));
+      }
+    };
+    loadProgress();
+  }, [user, slug]);
 
   const totalTopics = useMemo(
     () => path?.modules.reduce((s, m) => s + m.topics.length, 0) ?? 0,
@@ -248,10 +271,23 @@ const PathLearn = () => {
     setActiveTopic(topic);
   };
 
-  const handleMarkComplete = () => {
+  const handleMarkComplete = async () => {
     const key = `${activeModule}-${activeTopic}`;
     const newCompleted = new Set(completedTopics).add(key);
     setCompletedTopics(newCompleted);
+
+    // Save to database
+    if (user && slug) {
+      const xp = 10;
+      await supabase.from("user_progress").insert({
+        user_id: user.id,
+        path_slug: slug,
+        module_index: activeModule,
+        topic_index: activeTopic,
+        xp_earned: xp,
+      });
+      await recordActivity(user.id, 0, xp);
+    }
 
     // Check if module just got completed → show challenge
     const mod = path.modules[activeModule];
@@ -259,7 +295,7 @@ const PathLearn = () => {
     
     if (moduleFullyDone && !completedChallenges.has(activeModule)) {
       setShowChallenge(true);
-      return; // Don't auto-advance, show challenge instead
+      return;
     }
 
     // Auto-advance
