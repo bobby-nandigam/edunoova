@@ -271,10 +271,23 @@ const PathLearn = () => {
     setActiveTopic(topic);
   };
 
-  const handleMarkComplete = () => {
+  const handleMarkComplete = async () => {
     const key = `${activeModule}-${activeTopic}`;
     const newCompleted = new Set(completedTopics).add(key);
     setCompletedTopics(newCompleted);
+
+    // Save to database
+    if (user && slug) {
+      const xp = 10;
+      await supabase.from("user_progress").insert({
+        user_id: user.id,
+        path_slug: slug,
+        module_index: activeModule,
+        topic_index: activeTopic,
+        xp_earned: xp,
+      });
+      await recordActivity(user.id, 0, xp);
+    }
 
     // Check if module just got completed → show challenge
     const mod = path.modules[activeModule];
@@ -282,7 +295,7 @@ const PathLearn = () => {
     
     if (moduleFullyDone && !completedChallenges.has(activeModule)) {
       setShowChallenge(true);
-      return; // Don't auto-advance, show challenge instead
+      return;
     }
 
     // Auto-advance
