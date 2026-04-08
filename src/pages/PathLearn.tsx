@@ -199,6 +199,7 @@ const LearningContent = ({
 const PathLearn = () => {
   const { slug, pathIndex: pathIdxParam } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const pathIdx = Number(pathIdxParam || 0);
 
   const userType = userTypes.find((t) => t.slug === slug);
@@ -210,6 +211,25 @@ const PathLearn = () => {
   const [showChallenge, setShowChallenge] = useState(false);
   const [completedChallenges, setCompletedChallenges] = useState<Set<number>>(new Set());
   const [earnedXP, setEarnedXP] = useState(0);
+
+  // Load saved progress from database
+  useEffect(() => {
+    if (!user || !slug) return;
+    const loadProgress = async () => {
+      const { data } = await supabase
+        .from("user_progress")
+        .select("module_index, topic_index, xp_earned")
+        .eq("user_id", user.id)
+        .eq("path_slug", slug);
+
+      if (data && data.length > 0) {
+        const completed = new Set(data.map(d => `${d.module_index}-${d.topic_index}`));
+        setCompletedTopics(completed);
+        setEarnedXP(data.reduce((s, d) => s + (d.xp_earned || 0), 0));
+      }
+    };
+    loadProgress();
+  }, [user, slug]);
 
   const totalTopics = useMemo(
     () => path?.modules.reduce((s, m) => s + m.topics.length, 0) ?? 0,
