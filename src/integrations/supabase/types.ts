@@ -14,6 +14,240 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          created_at: string
+          criteria_type: string
+          criteria_value: number
+          description: string
+          icon: string
+          id: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          criteria_type: string
+          criteria_value?: number
+          description: string
+          icon?: string
+          id?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          criteria_type?: string
+          criteria_value?: number
+          description?: string
+          icon?: string
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      discussion_likes: {
+        Row: {
+          created_at: string
+          discussion_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          discussion_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          discussion_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discussion_likes_discussion_id_fkey"
+            columns: ["discussion_id"]
+            isOneToOne: false
+            referencedRelation: "discussions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discussion_replies: {
+        Row: {
+          content: string
+          created_at: string
+          discussion_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          discussion_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          discussion_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discussion_replies_discussion_id_fkey"
+            columns: ["discussion_id"]
+            isOneToOne: false
+            referencedRelation: "discussions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discussions: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          likes_count: number
+          replies_count: number
+          tag: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          id?: string
+          likes_count?: number
+          replies_count?: number
+          tag?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          likes_count?: number
+          replies_count?: number
+          tag?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      mock_test_questions: {
+        Row: {
+          correct_answer: number
+          created_at: string
+          explanation: string | null
+          id: string
+          options: Json
+          question_text: string
+          test_id: string
+        }
+        Insert: {
+          correct_answer?: number
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          options?: Json
+          question_text: string
+          test_id: string
+        }
+        Update: {
+          correct_answer?: number
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          options?: Json
+          question_text?: string
+          test_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mock_test_questions_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "mock_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mock_tests: {
+        Row: {
+          category: string
+          created_at: string
+          difficulty: string
+          duration_minutes: number
+          id: string
+          questions_count: number
+          title: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          difficulty?: string
+          duration_minutes?: number
+          id?: string
+          questions_count?: number
+          title: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          difficulty?: string
+          duration_minutes?: number
+          id?: string
+          questions_count?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      practice_problems: {
+        Row: {
+          acceptance_rate: number | null
+          category: string
+          created_at: string
+          description: string
+          difficulty: string
+          id: string
+          solution: string | null
+          starter_code: Json | null
+          test_cases: Json | null
+          title: string
+        }
+        Insert: {
+          acceptance_rate?: number | null
+          category: string
+          created_at?: string
+          description?: string
+          difficulty?: string
+          id?: string
+          solution?: string | null
+          starter_code?: Json | null
+          test_cases?: Json | null
+          title: string
+        }
+        Update: {
+          acceptance_rate?: number | null
+          category?: string
+          created_at?: string
+          description?: string
+          difficulty?: string
+          id?: string
+          solution?: string | null
+          starter_code?: Json | null
+          test_cases?: Json | null
+          title?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -44,9 +278,187 @@ export type Database = {
         }
         Relationships: []
       }
+      user_achievements: {
+        Row: {
+          achievement_id: string
+          id: string
+          unlocked_at: string
+          user_id: string
+        }
+        Insert: {
+          achievement_id: string
+          id?: string
+          unlocked_at?: string
+          user_id: string
+        }
+        Update: {
+          achievement_id?: string
+          id?: string
+          unlocked_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_achievements_achievement_id_fkey"
+            columns: ["achievement_id"]
+            isOneToOne: false
+            referencedRelation: "achievements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_progress: {
+        Row: {
+          completed_at: string
+          id: string
+          module_index: number
+          path_slug: string
+          topic_index: number
+          user_id: string
+          xp_earned: number
+        }
+        Insert: {
+          completed_at?: string
+          id?: string
+          module_index: number
+          path_slug: string
+          topic_index: number
+          user_id: string
+          xp_earned?: number
+        }
+        Update: {
+          completed_at?: string
+          id?: string
+          module_index?: number
+          path_slug?: string
+          topic_index?: number
+          user_id?: string
+          xp_earned?: number
+        }
+        Relationships: []
+      }
+      user_solutions: {
+        Row: {
+          code: string
+          execution_time: string | null
+          id: string
+          language: string
+          problem_id: string
+          status: string
+          submitted_at: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          execution_time?: string | null
+          id?: string
+          language?: string
+          problem_id: string
+          status?: string
+          submitted_at?: string
+          user_id: string
+        }
+        Update: {
+          code?: string
+          execution_time?: string | null
+          id?: string
+          language?: string
+          problem_id?: string
+          status?: string
+          submitted_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_solutions_problem_id_fkey"
+            columns: ["problem_id"]
+            isOneToOne: false
+            referencedRelation: "practice_problems"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_streaks: {
+        Row: {
+          activity_date: string
+          created_at: string
+          id: string
+          problems_solved: number
+          user_id: string
+          xp_earned: number
+        }
+        Insert: {
+          activity_date?: string
+          created_at?: string
+          id?: string
+          problems_solved?: number
+          user_id: string
+          xp_earned?: number
+        }
+        Update: {
+          activity_date?: string
+          created_at?: string
+          id?: string
+          problems_solved?: number
+          user_id?: string
+          xp_earned?: number
+        }
+        Relationships: []
+      }
+      user_test_attempts: {
+        Row: {
+          answers: Json | null
+          completed_at: string
+          id: string
+          score: number
+          test_id: string
+          time_taken_seconds: number | null
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          answers?: Json | null
+          completed_at?: string
+          id?: string
+          score?: number
+          test_id: string
+          time_taken_seconds?: number | null
+          total_questions?: number
+          user_id: string
+        }
+        Update: {
+          answers?: Json | null
+          completed_at?: string
+          id?: string
+          score?: number
+          test_id?: string
+          time_taken_seconds?: number | null
+          total_questions?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_test_attempts_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "mock_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
-      [_ in never]: never
+      leaderboard_view: {
+        Row: {
+          active_days: number | null
+          avatar_url: string | null
+          display_name: string | null
+          total_solved: number | null
+          total_xp: number | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
