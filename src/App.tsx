@@ -19,6 +19,7 @@ import InterviewPrep from "./pages/InterviewPrep";
 import Leaderboard from "./pages/Leaderboard";
 import SystemDesign from "./pages/SystemDesign";
 import SystemDesignDetail from "./pages/SystemDesignDetail";
+import ResetPassword from "./pages/ResetPassword";
 import PathLearn from "./pages/PathLearn";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -48,7 +49,7 @@ const App = () => (
             <Route path="/interview-prep" element={<InterviewPrep />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/system-design" element={<SystemDesign />} />
-            <Route path="/system-design" element={<SystemDesign />} />
+            <Route path="/system-design/:id" element={<SystemDesignDetail />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
