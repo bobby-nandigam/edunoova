@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, CheckCircle2, Circle, Layers, Code2, Lightbulb, TrendingUp, ChevronDown, ChevronRight, BookOpen, Clock } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Circle, Layers, Code2, Lightbulb, TrendingUp, ChevronDown, ChevronRight, BookOpen, Clock, Tag } from "lucide-react";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
