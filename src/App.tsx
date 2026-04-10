@@ -18,7 +18,7 @@ import MockTests from "./pages/MockTests";
 import InterviewPrep from "./pages/InterviewPrep";
 import Leaderboard from "./pages/Leaderboard";
 import SystemDesign from "./pages/SystemDesign";
-import ResetPassword from "./pages/ResetPassword";
+import SystemDesignDetail from "./pages/SystemDesignDetail";
 import PathLearn from "./pages/PathLearn";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
