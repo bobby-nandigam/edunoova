@@ -22,6 +22,7 @@ import SystemDesignDetail from "./pages/SystemDesignDetail";
 import ResetPassword from "./pages/ResetPassword";
 import PathLearn from "./pages/PathLearn";
 import Profile from "./pages/Profile";
+import ResumeMaker from "./pages/ResumeMaker";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/system-design/:id" element={<SystemDesignDetail />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/resume-maker" element={<ResumeMaker />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
