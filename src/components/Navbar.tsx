@@ -40,6 +40,7 @@ const practiceMenu = [
   { label: "Mock Tests", desc: "Timed exam simulations", href: "/mock-tests" },
   { label: "Code Editor", desc: "Write & run code instantly", href: "/compiler" },
   { label: "AI Debugger", desc: "Get AI-powered code help", href: "/ai-debug" },
+  { label: "AI Resume Maker", desc: "Build ATS-optimized resumes with AI", href: "/resume-maker" },
 ];
 
 const communityMenu = [
